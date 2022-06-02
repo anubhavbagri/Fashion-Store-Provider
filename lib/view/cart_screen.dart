@@ -1,5 +1,5 @@
 import 'package:fashion_store/provider/core/cart_provider.dart';
-import 'package:fashion_store/widgets/card_item.dart';
+import 'package:fashion_store/widgets/cart_item.dart';
 import 'package:fashion_store/widgets/payment_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
