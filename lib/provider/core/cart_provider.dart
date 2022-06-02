@@ -10,15 +10,14 @@ class CartProvider with ChangeNotifier {
 
   List<Product> list = <Product>[];
 
-  addProduct(int id, String title, double price, String description,
-      String category, String image) {
+  addProduct(
+      int id, String title, double price, String description, String image) {
     list.add(
       Product(
         id: id,
         title: title,
         price: price,
         description: description,
-        category: category,
         image: image,
       ),
     );

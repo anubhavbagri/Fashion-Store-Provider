@@ -36,7 +36,7 @@ class ProductItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  product.category,
+                  product.category!,
                   style:
                       const TextStyle(color: Colors.deepPurple, fontSize: 12),
                 ),
@@ -68,12 +68,12 @@ class ProductItem extends StatelessWidget {
                               productFunctions.addTotalPrice(product.price);
                               productFunctions.addCounter();
                               productFunctions.addProduct(
-                                  product.id,
-                                  product.title,
-                                  product.price,
-                                  product.description,
-                                  product.category,
-                                  product.image);
+                                product.id,
+                                product.title,
+                                product.price,
+                                product.description,
+                                product.image,
+                              );
                             },
                             child: Icon(
                               Icons.shopping_bag_outlined,

@@ -13,7 +13,7 @@ class Product with ChangeNotifier {
     required this.title,
     required this.price,
     required this.description,
-    required this.category,
+    this.category,
     required this.image,
     this.rating,
   });
@@ -22,7 +22,7 @@ class Product with ChangeNotifier {
   String title;
   double price;
   String description;
-  String category;
+  String? category;
   String image;
   Rating? rating;
 

@@ -139,7 +139,6 @@ class CartItemsList extends StatelessWidget {
                     price: value.list[index].price,
                     image: value.list[index].image,
                     description: value.list[index].description,
-                    category: value.list[index].category,
                   )),
             ),
           ),

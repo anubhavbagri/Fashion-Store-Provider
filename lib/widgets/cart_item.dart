@@ -10,7 +10,6 @@ class CartItemWidget extends StatefulWidget {
     required this.title,
     required this.price,
     required this.description,
-    required this.category,
     required this.image,
   }) : super(key: key);
   final int index;
@@ -18,7 +17,6 @@ class CartItemWidget extends StatefulWidget {
   final String title;
   final double price;
   final String description;
-  final String category;
   final String image;
 
   @override
