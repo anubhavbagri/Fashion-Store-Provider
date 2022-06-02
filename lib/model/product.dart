@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 
 List<Product> productFromJson(String str) =>
@@ -16,7 +15,7 @@ class Product with ChangeNotifier {
     required this.description,
     required this.category,
     required this.image,
-    required this.rating,
+    this.rating,
   });
 
   int id;
@@ -25,7 +24,7 @@ class Product with ChangeNotifier {
   String description;
   String category;
   String image;
-  Rating rating;
+  Rating? rating;
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["id"],
@@ -44,7 +43,7 @@ class Product with ChangeNotifier {
         "description": description,
         "category": category,
         "image": image,
-        "rating": rating.toJson(),
+        "rating": rating?.toJson(),
       };
 }
 
