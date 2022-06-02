@@ -1,6 +1,9 @@
 import 'package:badges/badges.dart';
-import 'package:fashion_store/services/products.dart';
-import 'package:fashion_store/services/size_config.dart';
+import 'package:fashion_store/provider/core/cart_provider.dart';
+import 'package:fashion_store/provider/services/products.dart';
+import 'package:fashion_store/provider/services/size_config.dart';
+
+import 'package:fashion_store/view/cart_screen.dart';
 import 'package:fashion_store/widgets/product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -122,7 +125,7 @@ class BottomNavBar extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  // Navigator.pushNamed(context, CartScreen.routeName);
+                  Navigator.pushNamed(context, CartScreen.routeName);
                 },
                 child: Container(
                   height: 45,
@@ -137,17 +140,24 @@ class BottomNavBar extends StatelessWidget {
                     children: [
                       Center(
                         child: Badge(
-                          badgeContent: Text(
-                            '0',
-                            style: TextStyle(color: Colors.white),
+                          showBadge:
+                              Provider.of<CartProvider>(context).getCounter() >
+                                      0
+                                  ? true
+                                  : false,
+                          badgeContent: Consumer<CartProvider>(
+                            builder: (context, value, child) {
+                              return Text(
+                                value.getCounter().toString(),
+                                style: const TextStyle(color: Colors.white),
+                              );
+                            },
                           ),
                           badgeColor: Colors.black,
                           animationType: BadgeAnimationType.fade,
-                          animationDuration: Duration(milliseconds: 300),
-                          child: const Icon(
-                            Icons.shopping_bag_outlined,
-                            color: Colors.grey,
-                          ),
+                          animationDuration: const Duration(milliseconds: 300),
+                          child: const Icon(Icons.shopping_bag_outlined,
+                              color: Colors.grey, size: 25),
                         ),
                       ),
                     ],
