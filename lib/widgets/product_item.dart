@@ -1,4 +1,5 @@
 import 'package:fashion_store/model/product.dart';
+import 'package:fashion_store/provider/core/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,6 +9,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: true);
+    final productFunctions = Provider.of<CartProvider>(context, listen: false);
 
     return Container(
       color: Colors.white,
@@ -61,10 +63,21 @@ class ProductItem extends StatelessWidget {
                     ),
                     Consumer<Product>(
                       builder: ((context, value, child) => GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              print("~~~~~~~~ ${product.title}");
+                              productFunctions.addTotalPrice(product.price);
+                              productFunctions.addCounter();
+                              productFunctions.addProduct(
+                                  product.id,
+                                  product.title,
+                                  product.price,
+                                  product.description,
+                                  product.category,
+                                  product.image);
+                            },
                             child: Icon(
                               Icons.shopping_bag_outlined,
-                              size: 19,
+                              size: 22,
                               color: Colors.grey[400],
                             ),
                           )),
