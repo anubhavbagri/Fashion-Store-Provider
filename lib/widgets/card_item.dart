@@ -29,6 +29,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
   @override
   Widget build(BuildContext context) {
     int count = Provider.of<CartProvider>(context).getCounter();
+    final productFunctions = Provider.of<CartProvider>(context, listen: false);
     return Column(
       children: [
         Padding(
@@ -128,14 +129,14 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       onTap: () async {
                                         if (count > 1) {
                                           count--;
-                                          Provider.of<CartProvider>(context,
-                                                  listen: false)
-                                              .subtractCounter();
+                                          productFunctions.subtractCounter();
+                                          productFunctions
+                                              .subtractTotalPrice(widget.price);
                                         }
                                         if (count == 1) {
-                                          Provider.of<CartProvider>(context,
-                                                  listen: false)
-                                              .del(widget.index);
+                                          productFunctions.delete(widget.index);
+                                          productFunctions
+                                              .subtractTotalPrice(widget.price);
                                         }
                                       },
                                       child: Container(
@@ -156,7 +157,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       child: Center(
                                         child: Text(
                                           '',
-                                          // "${widget.quantity}",
+                                          // "",
                                           style: const TextStyle(
                                               fontWeight: FontWeight.w600),
                                         ),
@@ -165,9 +166,9 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                     GestureDetector(
                                       onTap: () {
                                         count++;
-                                        Provider.of<CartProvider>(context,
-                                                listen: false)
-                                            .addCounter();
+                                        productFunctions.addCounter();
+                                        productFunctions
+                                            .addTotalPrice(widget.price);
                                       },
                                       child: Container(
                                         height: 23,
