@@ -2,9 +2,27 @@ import 'package:fashion_store/model/product.dart';
 import 'package:fashion_store/provider/core/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ProductItem extends StatelessWidget {
+class ProductItem extends StatefulWidget {
   const ProductItem({Key? key}) : super(key: key);
+
+  @override
+  State<ProductItem> createState() => _ProductItemState();
+}
+
+class _ProductItemState extends State<ProductItem> {
+  void clearPref() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // await prefs.remove('product_title');
+    await prefs.clear();
+  }
+
+  @override
+  void initState() {
+    clearPref();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,17 +81,33 @@ class ProductItem extends StatelessWidget {
                     ),
                     Consumer<Product>(
                       builder: ((context, value, child) => GestureDetector(
-                            onTap: () {
-                              print("~~~~~~~~ ${product.title}");
+                            onTap: () async {
+                              SharedPreferences prefs =
+                                  await SharedPreferences.getInstance();
                               productFunctions.addTotalPrice(product.price);
-                              productFunctions.addCounter();
-                              productFunctions.addProduct(
-                                product.id,
-                                product.title,
-                                product.price,
-                                product.description,
-                                product.image,
-                              );
+                              if (prefs.getString('product_title') !=
+                                  product.title) {
+                                print('####');
+                                productFunctions.addProduct(
+                                  product.id,
+                                  1,
+                                  product.title,
+                                  product.price,
+                                  product.description,
+                                  product.image,
+                                );
+                              } else {
+                                const snackBar = SnackBar(
+                                    behavior: SnackBarBehavior.floating,
+                                    backgroundColor: Colors.red,
+                                    content: Text(
+                                        'Product is already added in cart'),
+                                    duration: Duration(seconds: 2));
+                                if (!mounted) return;
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              }
+                              prefs.setString('product_title', product.title);
                             },
                             child: Icon(
                               Icons.shopping_bag_outlined,
