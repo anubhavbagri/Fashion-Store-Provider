@@ -60,7 +60,7 @@ class CartScreen extends StatelessWidget {
                                     fontSize: 17, fontWeight: FontWeight.w600),
                               ),
                               Text(
-                                "\$${Provider.of<CartProvider>(context).totalPrice.round()}",
+                                "\$${Provider.of<CartProvider>(context).getTotalPrice().round()}",
                                 style: const TextStyle(
                                     fontSize: 25, fontWeight: FontWeight.bold),
                               )
@@ -135,6 +135,7 @@ class CartItemsList extends StatelessWidget {
               itemBuilder: ((context, index) => CartItemWidget(
                     index: index,
                     id: value.list[index].id,
+                    quantity: value.list[index].quantity,
                     title: value.list[index].title,
                     price: value.list[index].price,
                     image: value.list[index].image,
