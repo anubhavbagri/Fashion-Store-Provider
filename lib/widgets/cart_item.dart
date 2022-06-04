@@ -1,7 +1,9 @@
 import 'package:fashion_store/provider/core/cart_provider.dart';
+import 'package:fashion_store/provider/services/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// individual card item that's present on the cart screen
 class CartItemWidget extends StatefulWidget {
   const CartItemWidget({
     Key? key,
@@ -28,6 +30,7 @@ class CartItemWidget extends StatefulWidget {
 class _CartItemWidgetState extends State<CartItemWidget> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     int quantity = widget.quantity;
     final productFunctions = Provider.of<CartProvider>(context, listen: false);
     return Column(
@@ -51,38 +54,36 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                     ),
                   ),
                   Expanded(
-                    child: Container(
+                    child: SizedBox(
                       height: 80,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 160,
-                                  child: Text(
-                                    widget.title,
-                                    softWrap: true,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                        fontSize: 12.4,
-                                        fontWeight: FontWeight.w600,
-                                        letterSpacing: 0.6),
-                                  ),
-                                ),
-                                Text(
-                                  "\$ ${widget.price}",
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                width: 160,
+                                child: Text(
+                                  widget.title,
+                                  softWrap: true,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                      fontSize: 12.4,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 0.6),
                                 ),
-                              ],
-                            ),
+                              ),
+                              Text(
+                                "\$ ${widget.price}",
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -149,7 +150,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                                       child: const Center(child: Text("-")),
                                     ),
                                   ),
-                                  Container(
+                                  SizedBox(
                                     width: 30,
                                     child: Center(
                                       child: Text(

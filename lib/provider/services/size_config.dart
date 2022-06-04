@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+// dynamic sizing according to your mobile screen
 class SizeConfig {
   static double? safeHorizontal;
   static double? safeVertical;

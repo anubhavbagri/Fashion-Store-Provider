@@ -12,6 +12,7 @@ class CartProvider with ChangeNotifier {
 
   List<Product> list = <Product>[];
 
+  // adding product to cart
   addProduct(int id, int quantity, String title, double price,
       String description, String image) {
     list.add(
@@ -28,6 +29,7 @@ class CartProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  // deleting product from cart when user confirms from dialog box
   delete(int index) {
     list.removeAt(index);
     notifyListeners();

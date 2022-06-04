@@ -1,4 +1,5 @@
 import 'package:fashion_store/provider/core/cart_provider.dart';
+import 'package:fashion_store/provider/services/size_config.dart';
 import 'package:fashion_store/widgets/cart_item.dart';
 import 'package:fashion_store/widgets/payment_button.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),

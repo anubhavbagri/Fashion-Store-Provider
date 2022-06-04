@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:fashion_store/model/product.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -18,6 +16,7 @@ class Products with ChangeNotifier {
     try {
       final response = await http.get(url);
 
+      // in case the request is not successful
       if (response.statusCode != 200) {
         print('Error Loading data!');
       }
@@ -30,6 +29,6 @@ class Products with ChangeNotifier {
       notifyListeners();
     } catch (error) {
       print(error.toString());
-    } finally {}
+    }
   }
 }

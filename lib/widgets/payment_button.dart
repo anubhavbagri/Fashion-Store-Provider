@@ -1,3 +1,4 @@
+import 'package:fashion_store/provider/services/size_config.dart';
 import 'package:flutter/material.dart';
 
 class PaymentButton extends StatelessWidget {
@@ -7,6 +8,7 @@ class PaymentButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return GestureDetector(
       onTap: () {},
       child: Container(

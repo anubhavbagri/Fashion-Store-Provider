@@ -1,9 +1,11 @@
 import 'package:fashion_store/model/product.dart';
 import 'package:fashion_store/provider/core/cart_provider.dart';
+import 'package:fashion_store/provider/services/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// individual product item that is present on the home screen
 class ProductItem extends StatefulWidget {
   const ProductItem({Key? key}) : super(key: key);
 
@@ -26,6 +28,8 @@ class _ProductItemState extends State<ProductItem> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
+
     final product = Provider.of<Product>(context, listen: true);
     final productFunctions = Provider.of<CartProvider>(context, listen: false);
 
