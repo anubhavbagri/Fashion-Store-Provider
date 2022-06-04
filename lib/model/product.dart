@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 List<Product> productFromJson(String str) =>
@@ -10,6 +11,7 @@ String productToJson(List<Product> data) =>
 class Product with ChangeNotifier {
   Product({
     required this.id,
+    this.quantity = 0,
     required this.title,
     required this.price,
     required this.description,
@@ -19,6 +21,7 @@ class Product with ChangeNotifier {
   });
 
   int id;
+  int quantity;
   String title;
   double price;
   String description;
