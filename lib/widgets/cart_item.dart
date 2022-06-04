@@ -7,6 +7,7 @@ class CartItemWidget extends StatefulWidget {
     Key? key,
     required this.index,
     required this.id,
+    required this.quantity,
     required this.title,
     required this.price,
     required this.description,
@@ -14,6 +15,7 @@ class CartItemWidget extends StatefulWidget {
   }) : super(key: key);
   final int index;
   final int id;
+  final int quantity;
   final String title;
   final double price;
   final String description;
@@ -26,7 +28,7 @@ class CartItemWidget extends StatefulWidget {
 class _CartItemWidgetState extends State<CartItemWidget> {
   @override
   Widget build(BuildContext context) {
-    int count = Provider.of<CartProvider>(context).getCounter();
+    int quantity = widget.quantity;
     final productFunctions = Provider.of<CartProvider>(context, listen: false);
     return Column(
       children: [
@@ -82,109 +84,105 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                               ],
                             ),
                           ),
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Row(
-                                  children: [
-                                    const Text(
-                                      "Size:  ",
-                                      style: TextStyle(
-                                          fontSize: 12, color: Colors.grey),
-                                    ),
-                                    const Text(
-                                      'S',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 13),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    const Text(
-                                      "Color:  ",
-                                      style: TextStyle(
-                                          fontSize: 12, color: Colors.grey),
-                                    ),
-                                    Container(
-                                      height: 16,
-                                      width: 16,
-                                      decoration: BoxDecoration(
-                                          color: Colors.black,
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                          border: Border.all(
-                                              width: 0.3, color: Colors.black)),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () async {
-                                        if (count > 1) {
-                                          count--;
-                                          productFunctions.subtractCounter();
-                                          productFunctions
-                                              .subtractTotalPrice(widget.price);
-                                        }
-                                        if (count == 1) {
-                                          productFunctions.delete(widget.index);
-                                          productFunctions
-                                              .subtractTotalPrice(widget.price);
-                                        }
-                                      },
-                                      child: Container(
-                                        height: 23,
-                                        width: 23,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                              width: 0.5,
-                                              color: Colors.grey,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(1)),
-                                        child: const Center(child: Text("-")),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 30,
-                                      child: Center(
-                                        child: Text(
-                                          '',
-                                          // "",
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.w600),
-                                        ),
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        count++;
-                                        productFunctions.addCounter();
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                children: const [
+                                  Text(
+                                    "Size:  ",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                  ),
+                                  Text(
+                                    'S',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 13),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  const Text(
+                                    "Color:  ",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                  ),
+                                  Container(
+                                    height: 16,
+                                    width: 16,
+                                    decoration: BoxDecoration(
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.circular(4),
+                                        border: Border.all(
+                                            width: 0.3, color: Colors.black)),
+                                  )
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                    onTap: () async {
+                                      if (quantity > 1) {
+                                        quantity--;
                                         productFunctions
-                                            .addTotalPrice(widget.price);
-                                      },
-                                      child: Container(
-                                        height: 23,
-                                        width: 23,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                              width: 0.5,
-                                              color: Colors.grey,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(1)),
-                                        child: const Center(child: Text("+")),
+                                            .subtractQuantity(widget.index);
+                                        productFunctions
+                                            .subtractTotalPrice(widget.price);
+                                      } else if (quantity == 1) {
+                                        return dialogBox(context, widget.index,
+                                            widget.price);
+                                      }
+                                    },
+                                    child: Container(
+                                      height: 23,
+                                      width: 23,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                            width: 0.5,
+                                            color: Colors.grey,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(1)),
+                                      child: const Center(child: Text("-")),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 30,
+                                    child: Center(
+                                      child: Text(
+                                        '$quantity',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w600),
                                       ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      quantity++;
+                                      productFunctions
+                                          .addQuantity(widget.index);
+                                      productFunctions
+                                          .addTotalPrice(widget.price);
+                                    },
+                                    child: Container(
+                                      height: 23,
+                                      width: 23,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                            width: 0.5,
+                                            color: Colors.grey,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(1)),
+                                      child: const Center(child: Text("+")),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
                           )
                         ],
                       ),
@@ -202,4 +200,94 @@ class _CartItemWidgetState extends State<CartItemWidget> {
       ],
     );
   }
+}
+
+Future<void> dialogBox(BuildContext context, int index, double price) {
+  return showDialog(
+    barrierColor: Colors.black54,
+    context: context,
+    builder: (ctx) => AlertDialog(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      content: SizedBox(
+        height: 160,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            const Text(
+              "Delete from Cart",
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+            ),
+            const Text(
+              "Are you sure you want to remove this item from cart?",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 13),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: GestureDetector(
+                    onTap: () {
+                      Provider.of<CartProvider>(context, listen: false)
+                          .delete(index);
+                      Provider.of<CartProvider>(context, listen: false)
+                          .subtractTotalPrice(price);
+                      Provider.of<CartProvider>(context, listen: false)
+                          .subtractCounter();
+                      Navigator.of(ctx).pop(true);
+                    },
+                    child: Container(
+                      width: (double.infinity / 2),
+                      color: Colors.black,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 10),
+                      child: const Center(
+                        child: Text(
+                          "REMOVE",
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  width: 6,
+                ),
+                Flexible(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(ctx).pop(true);
+                    },
+                    child: Container(
+                      width: (double.infinity / 2),
+                      decoration: BoxDecoration(border: Border.all(width: 1)),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 9),
+                      child: const Center(
+                        child: Text(
+                          "CANCEL",
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      ),
+    ),
+  );
 }
