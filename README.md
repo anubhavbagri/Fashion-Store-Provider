@@ -1,4 +1,4 @@
-## 👗Fashion Store
+# 👗Fashion Store
 
 A simple two page e-commerce app made with [provider](https://pub.dev/packages/provider) state management as an assignment for [ZuPay](https://www.zupay.in/).
 
