@@ -23,9 +23,9 @@ samples, guidance on mobile development, and a full API reference.
 
 <table>
 <tr>
-<td><img src="https://user-images.githubusercontent.com/56643117/172026823-e7db50b6-eabe-4a90-9cb4-29a0b6960d7c.gif" alt="screen-recording" height="600"></td>
-<td><img src="screen1.jpg" alt="screen1" height="600"></td>
-<td><img src="screen2.jpg" alt="screen2" height="600"></td>
+<td><img src="https://user-images.githubusercontent.com/56643117/172026823-e7db50b6-eabe-4a90-9cb4-29a0b6960d7c.gif" alt="screen-recording" height="550"></td>
+<td><img src="screen1.jpg" alt="screen1" height="550"></td>
+<td><img src="screen2.jpg" alt="screen2" height="550"></td>
 </tr>
 </table>
 
