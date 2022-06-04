@@ -84,10 +84,8 @@ class _ProductItemState extends State<ProductItem> {
                             onTap: () async {
                               SharedPreferences prefs =
                                   await SharedPreferences.getInstance();
-                              productFunctions.addTotalPrice(product.price);
                               if (prefs.getString('product_title') !=
                                   product.title) {
-                                print('####');
                                 productFunctions.addProduct(
                                   product.id,
                                   1,
@@ -96,12 +94,13 @@ class _ProductItemState extends State<ProductItem> {
                                   product.description,
                                   product.image,
                                 );
+                                productFunctions.addTotalPrice(product.price);
                               } else {
                                 const snackBar = SnackBar(
                                     behavior: SnackBarBehavior.floating,
                                     backgroundColor: Colors.red,
                                     content: Text(
-                                        'Product is already added in cart'),
+                                        'Product is already added to cart'),
                                     duration: Duration(seconds: 2));
                                 if (!mounted) return;
                                 ScaffoldMessenger.of(context)
