@@ -1,6 +1,6 @@
 # 👗Fashion Store
 
-> **UPDATE: This is the <ins>Mock Take Home Assignment</ins> for the Flutter Hiring Network initiative by [Pooja Bhaumik](https://twitter.com/pooja_bhaumik) and [Debasmita Sarkar](https://twitter.com/The__Debo)!**
+> **UPDATE: This is also the <ins>Mock Take Home Assignment</ins> for the Flutter Hiring Network initiative by [Pooja Bhaumik](https://twitter.com/pooja_bhaumik) and [Debasmita Sarkar](https://twitter.com/The__Debo)!**
 
 A simple two page e-commerce app made with [provider](https://pub.dev/packages/provider) state management as an assignment for [ZuPay](https://www.zupay.in/).
 
