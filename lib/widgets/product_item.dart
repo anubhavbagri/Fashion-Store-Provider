@@ -100,11 +100,23 @@ class _ProductItemState extends State<ProductItem> {
                                 );
                                 productFunctions.addTotalPrice(product.price);
                               } else {
-                                const snackBar = SnackBar(
+                                var snackBar = SnackBar(
                                     behavior: SnackBarBehavior.floating,
                                     backgroundColor: Colors.red,
-                                    content: Text(
-                                        'Product is already added to cart'),
+                                    content: Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.error,
+                                          color: Colors.white,
+                                        ),
+                                        SizedBox(
+                                          width:
+                                              SizeConfig.safeHorizontal! * .02,
+                                        ),
+                                        const Text(
+                                            'Product is already added to cart!'),
+                                      ],
+                                    ),
                                     duration: Duration(seconds: 2));
                                 if (!mounted) return;
                                 ScaffoldMessenger.of(context)
